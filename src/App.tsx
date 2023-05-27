@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import { useUserStore } from './stores/userStore';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RegisterPage from './pages/Auth/RegisterPage/RegisterPage';
 import LoginPage from './pages/Auth/LoginPage/LoginPage';
 import HomePage from './pages/Home/HomePage';

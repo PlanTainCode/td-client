@@ -1,0 +1,34 @@
+.styleContainerForm {
+    min-width: 380px;
+    max-width: 380px;
+    align-self: center;
+
+    h1 {
+        text-align: center;
+    }
+}
+
+.styleForm {
+    box-sizing: border-box;
+    padding:10px 15px;
+    border-radius: 20px;
+    border: 1px solid #028edf;
+    margin: 20px 0px;
+    text-align: center;
+}
+
+.styleBlock {
+    box-sizing: border-box;
+    height: 60px;
+    padding:10px 15px;
+    border-radius: 20px;
+    border: 1px solid #028edf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a {
+        text-decoration: none;
+        color: #028edf;
+    }
+}

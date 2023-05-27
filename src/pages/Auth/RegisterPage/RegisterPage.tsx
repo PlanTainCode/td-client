@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import { useNavigate, Link } from 'react-router-dom';
+
 import { registerUser } from '../../../api/auth';
+
 import { useUserStore } from '../../../stores/userStore';
-import { Link } from 'react-router-dom';
+
+import InputFormAuth from '../../../UI/inputs/InputFormAuth/InputFormAuth';
+import FormAuthButton from '../../../UI/buttons/FormAuthButton/FormAuthButton';
+
+import '../LoginPage/styles.scss'
 
 const RegisterPage: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -16,22 +23,31 @@ const RegisterPage: React.FC = () => {
         try {
             const response = await registerUser(username, email, password);
             setToken(response.data.token);
-            navigate('/');  // redirect to home page
+            navigate('/'); 
         } catch (error) {
             console.error(error);
-            setToken(undefined); // В случае ошибки убедитесь, что токен был удалён
+            setToken(undefined);
         }
     };
 
     return (
-        <div>
-        <form onSubmit={register}>
-            <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" required />
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" required />
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required />
-            <button type="submit">Register</button>
-        </form>
-        <Link to='/login'>Логин</Link>
+
+        <div style={{width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div className='styleContainerForm'>
+                <h1>Регистрация</h1>
+
+                <form onSubmit={register} className='styleForm'>
+                    <InputFormAuth value={username} setValue={setUsername} placeholder='Username' label='Псевдоним' required type='text' />
+                    <InputFormAuth value={email} setValue={setEmail} placeholder='Email' label='Почта' required type='email' />
+                    <InputFormAuth value={password} setValue={setPassword} placeholder='Password' label='Пароль' required type='password' />
+                    <FormAuthButton text='Зарегистрироваться' type='submit' />
+                </form>
+
+                <div className="styleBlock">
+                    <p>Уже зарагистрированы? <Link to='/login'>Вход</Link></p>
+                </div>
+                
+            </div>
         </div>
     );
 };

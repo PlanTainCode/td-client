@@ -1,0 +1,15 @@
+.styleButton {
+    box-sizing: border-box;
+    height: 50px;
+    width: 80%;
+    margin: 10px auto 0 auto;
+    border-radius: 20px;
+    background-color: #028edf;
+    cursor: pointer;
+    color: #FFFFFF;
+    border: 2px solid #028edf;
+    transition: all 0.2s ease 0s;
+    &:hover {
+        border: 2px solid #FFFFFF;
+    }
+}

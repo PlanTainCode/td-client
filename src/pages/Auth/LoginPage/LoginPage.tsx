@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { loginUser } from '../../../api/auth';
 
 import { useUserStore } from '../../../stores/userStore';
 
+import InputFormAuth from '../../../UI/inputs/InputFormAuth/InputFormAuth';
+import FormAuthButton from '../../../UI/buttons/FormAuthButton/FormAuthButton';
+
+import './styles.scss';
 // 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -30,14 +33,23 @@ const LoginPage: React.FC = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={login}>
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" required />
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required />
-                <button type="submit">Login</button>
-            </form>
-            <Link to='/register'>Регистрация</Link>
+        <div style={{width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div className='styleContainerForm'>
+                <h1>Вход</h1>
+
+                <form onSubmit={login} className='styleForm'>
+                    <InputFormAuth value={email} setValue={setEmail} placeholder='Email' label='Почта' required type='email' />
+                    <InputFormAuth value={password} setValue={setPassword} placeholder='Password' label='Пароль' required type='password' />
+                    <FormAuthButton text='Авторизоваться' type='submit' />
+                </form>
+
+                <div className="styleBlock">
+                    <p>Еще не зарагистрированы? <Link to='/register'>Регистрация</Link></p>
+                </div>
+                
+            </div>
         </div>
+        
     );
 };
 
