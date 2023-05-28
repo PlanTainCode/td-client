@@ -8,8 +8,7 @@ import { useUserStore } from '../../../stores/userStore';
 
 import InputFormAuth from '../../../UI/inputs/InputFormAuth/InputFormAuth';
 import FormAuthButton from '../../../UI/buttons/FormAuthButton/FormAuthButton';
-
-import '../LoginPage/styles.scss'
+import { Box, Center, Container, Heading, Text, Link as LinkChakra } from '@chakra-ui/react';
 
 const RegisterPage: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -31,24 +30,24 @@ const RegisterPage: React.FC = () => {
     };
 
     return (
-
-        <div style={{width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <div className='styleContainerForm'>
-                <h1>Регистрация</h1>
-
-                <form onSubmit={register} className='styleForm'>
-                    <InputFormAuth value={username} setValue={setUsername} placeholder='Username' label='Псевдоним' required type='text' />
-                    <InputFormAuth value={email} setValue={setEmail} placeholder='Email' label='Почта' required type='email' />
-                    <InputFormAuth value={password} setValue={setPassword} placeholder='Password' label='Пароль' required type='password' />
-                    <FormAuthButton text='Зарегистрироваться' type='submit' />
-                </form>
-
-                <div className="styleBlock">
-                    <p>Уже зарагистрированы? <Link to='/login'>Вход</Link></p>
-                </div>
+        <Center w='100%' h="100vh" mt={'-120'}>
+            <Container maxW={'sm'} h={'40'}>
+                <Heading as='h1' size='lg' textAlign={'center'} mb={'6'}>Регистрация</Heading>
                 
-            </div>
-        </div>
+                <Box p={'4'} borderWidth='1px' borderColor='blue:900' borderRadius={'20'}>
+                    <form onSubmit={register}>
+                        <InputFormAuth value={username} setValue={setUsername} leftButton placeholder='Username' label='Псевдоним' required type='text' />
+                        <InputFormAuth value={email} setValue={setEmail} placeholder='Email' label='Почта' required type='text' mt='2' />
+                        <InputFormAuth value={password} setValue={setPassword} rightButton placeholder='Password' label='Пароль' required type='password' mb='2' mt='2' />
+                        <FormAuthButton text='Зарегистрироваться' type='submit' />
+                    </form>
+                </Box>
+
+                <Box mt={'2'} p={'4'} borderWidth='1px' borderColor='blue:900' borderRadius={'20'}>
+                    <Text>Уже зарагистрированы? <Link to='/login'><LinkChakra color='blue'>Вход</LinkChakra></Link></Text>
+                </Box>
+            </Container>
+        </Center>
     );
 };
 

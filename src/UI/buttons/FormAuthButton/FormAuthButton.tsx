@@ -1,20 +1,20 @@
+import { Button } from '@chakra-ui/react';
 import React, {FC} from 'react';
-import './styles.scss';
 
 interface IFormAuthButton {
     text: string,
     type?: "button" | "submit" | "reset",
-    styleButton?: any,
 }
 
-const FormAuthButton:FC<IFormAuthButton> = ({text, type,styleButton}) => {
+const FormAuthButton:FC<IFormAuthButton> = ({text, type}) => {
 
     return (
-        <button
+        <Button 
+            colorScheme='blue' 
+            width={'full'} 
+            mt={'3'} 
             type={type}
-            style={styleButton && styleButton}
-            className='styleButton'
-        >{text}</button>
+        >{text}</Button>
     )
 }
 
