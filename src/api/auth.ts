@@ -1,8 +1,4 @@
-import axios from 'axios';
-
-const api = axios.create({
-  baseURL: 'http://localhost:4000/api', // ваш сервер API
-});
+import { api } from './const';
 
 export const registerUser = (username: string, email: string, password: string) => 
     api.post('/user', { username, email, password });

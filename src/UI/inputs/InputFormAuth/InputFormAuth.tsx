@@ -38,18 +38,6 @@ const InputFormAuth:FC<IInputFormAuthProps> = ({
     return (
         <Box mt={mt} mb={mb}>
             <Text as="b" fontSize={"sm"} >{label}</Text>
-            {/* {type === 'text' ? (
-                <Input
-                    mt={'1'}
-                    type={type}
-                    placeholder={placeholder}
-                    isRequired={required}
-                    onChange={handleChange}
-                    value={value}
-                    errorBorderColor='crimson'
-                    isInvalid={isErr}
-                />
-            ) : ( */}
                 <InputGroup size='md' mt={'1'}>
                     {leftButton &&
                         <InputLeftElement>
@@ -67,6 +55,7 @@ const InputFormAuth:FC<IInputFormAuthProps> = ({
                         value={value}
                         onChange={handleChange}
                     />
+
                     {rightButton && 
                         <InputRightElement width='10'>
                             <IconButton 
@@ -85,7 +74,6 @@ const InputFormAuth:FC<IInputFormAuthProps> = ({
                     }
                     
                 </InputGroup>
-            {/* )} */}
         </Box>
 )};
 

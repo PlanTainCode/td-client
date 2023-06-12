@@ -2,14 +2,18 @@ import React, {FC, useState, useEffect, ReactElement} from "react";
 import { useUserStore } from "../../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import { getProfile } from "../../api/auth";
-import { Box, Container, HStack } from "@chakra-ui/react";
+import { Avatar, Box, Button, Container, Grid, GridItem, HStack, IconButton, Popover, PopoverBody, PopoverContent, PopoverHeader, PopoverTrigger, Text, VStack, WrapItem } from "@chakra-ui/react";
+import toFirstUpperCase from "../../helpFuncs/toFirstUpperCase";
+import LeftTabIcon from "../../assets/iconsComponents/leftTabIconActive";
+import { CalendarIcon, ChatIcon, CheckIcon, StarIcon } from "@chakra-ui/icons";
+
 
 interface ILayout {
     children: any;
 }
 
 const Layout:FC<ILayout> = ({children}) => {
-
+    const [activeTab, setActiveTab] = useState<boolean>(true)
     const [user, setUser] = useState<any | null>(null);
     
     const token = useUserStore((state) => state.token);
@@ -35,24 +39,101 @@ const Layout:FC<ILayout> = ({children}) => {
     const logoutToken = () => {
         setToken(undefined)
     }
+
+    const tooglePopup = () => {
+        setActiveTab(!activeTab);
+    }
+
+    const menuData = [
+        {
+            id: 1,
+            name: 'Домой',
+            href: '/',
+            icon: <StarIcon />,
+        },
+        {
+            id: 2,
+            name: 'Todos',
+            href: '/todos',
+            icon: <CheckIcon />,
+        },
+        {
+            id: 3,
+            name: 'Kanban',
+            href: '/kanban',
+            icon: <CalendarIcon />,
+        },
+        {
+            id: 4,
+            name: 'Чаты',
+            href: '/chats',
+            icon: <ChatIcon />,
+        },
+    ]
     
     return (
-        // <div>
-        //     {user && (
-        //         <div>
-        //             <p>@{(user.username).toLowerCase()}</p>
-        //             <p>Email: {user.email}</p>
-        //         </div>
-        //     )}
-        //     {children}
-        //     <button onClick={() => logoutToken()}>Выйти</button>
-        // </div>
-        <>
-            <HStack spacing={'auto'} ml={'3'} mr={'3'} mt={'3'} mb={'3'} borderWidth='1px' borderColor={'Menu'}>
-                <Box>asdcasd</Box>
-                <Box>asdcasd</Box>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+            <HStack spacing={'auto'} pb={'2'} pt={'2'} pr={'5'} pl={'5'} borderBottom='1px' borderColor={'gray.300'}>
+                <Box>
+                    <HStack>
+                        <IconButton bg={'transparent'} aria-label='Toogle menu' onClick={tooglePopup} icon={<LeftTabIcon stroke="black" fill={activeTab ? 'black' : 'transparent'} />} />
+                    </HStack>
+                </Box>
+                <Box>
+                    <Popover placement='bottom-start'>
+                        <PopoverTrigger>
+                            <Avatar name={user?.username} size='sm' cursor={'pointer'} />
+                        </PopoverTrigger>
+                        <PopoverContent w={'250px'}>
+                            <PopoverHeader>
+                                <HStack>
+                                    <Avatar name={user?.username} size='md' />
+                                    <VStack align={'flex-start'} spacing={'0.5'} >
+                                        <WrapItem>
+                                            <Text>{toFirstUpperCase({string: user?.username})}</Text>
+                                        </WrapItem>
+                                        <WrapItem>
+                                            <Text fontSize={'sm'}>{user?.email}</Text>
+                                        </WrapItem>
+                                    </VStack>
+                                </HStack>
+                                
+                            </PopoverHeader>
+                            <PopoverBody>
+                                <VStack>
+                                    <WrapItem>
+                                        <Button width="200px" colorScheme='gray' onClick={() => logoutToken()}>Выйти</Button>
+                                    </WrapItem>
+                                </VStack>
+                            </PopoverBody>
+                        </PopoverContent>
+                    </Popover>
+                    
+                </Box>
             </HStack>
-        </>
+            <Grid templateColumns={activeTab ? 'repeat(8, 1fr)' : 'repeat(20, 1fr)'} height={'90vh'}>
+                <GridItem colSpan={1} borderRight='1px' borderColor={'gray.300'} >
+                    <VStack alignItems={'left'} pl={'5'} pt={'5'}>
+                        {menuData.map((item) => (
+                            <WrapItem key={item.id}>
+                                <Button 
+                                    w={activeTab ? '200px' : '45px'} 
+                                    transition={'all 0.1s ease 0s'} 
+                                    justifyContent={'left'} 
+                                    alignItems={"center"}
+                                    onClick={() => navigate(item.href)}
+                                    >
+                                        {item.icon} 
+                                        
+                                        {activeTab && <Text fontSize={'md'} ml={'3'}>{item.name}</Text>}
+                                </Button>
+                            </WrapItem>
+                        ))}
+                    </VStack>
+                </GridItem>
+                <GridItem colSpan={activeTab ? 7 : 19} pt={'5'} pl={'5'} pr={'5'}>{children}</GridItem>
+            </Grid>
+        </div>
     )
 }
 

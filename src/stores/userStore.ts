@@ -12,7 +12,7 @@ export const useUserStore = create<userType>((set) => ({
         if (token === undefined) {
             Cookies.remove('token');
         } else {
-        Cookies.set('token', token, { expires: 1 });  // Устанавливает токен на срок в 1 день
+        Cookies.set('token', token, { expires: 15 });  // Устанавливает токен на срок в 1 день
         }
         set(() => ({ token }));
     },

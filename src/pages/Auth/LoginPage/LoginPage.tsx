@@ -23,6 +23,7 @@ const LoginPage: React.FC = () => {
         event.preventDefault();
         try {
             const response = await loginUser(email, password);
+            console.log(response.data.token)
             setToken(response.data.token);
             navigate('/');
         } catch (error) {
