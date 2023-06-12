@@ -113,7 +113,7 @@ const Layout:FC<ILayout> = ({children}) => {
             </HStack>
             <Grid templateColumns={activeTab ? 'repeat(8, 1fr)' : 'repeat(20, 1fr)'} height={'90vh'}>
                 <GridItem colSpan={1} borderRight='1px' borderColor={'gray.300'} >
-                    <VStack alignItems={'left'} pl={'5'} pt={'5'}>
+                    <VStack alignItems={'center'}  pt={'5'} >
                         {menuData.map((item) => (
                             <WrapItem key={item.id}>
                                 <Button 

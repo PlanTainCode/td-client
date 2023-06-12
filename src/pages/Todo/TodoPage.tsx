@@ -52,7 +52,7 @@ const TodoPage = () => {
     const TodoItem:FC<ITodoItemProps> = ({id, title, state}) => {
         return (
             <WrapItem key={id}>
-                <Box maxWidth={'300px'} w='100%' display={'flex'} padding={'10px'} borderRadius={'10'} justifyContent={'space-between'} alignItems={'flex-start'} backgroundColor={'gray.100'}>
+                <Box  w='100%' display={'flex'} padding={'10px'} borderRadius={'10'} justifyContent={'space-between'} alignItems={'flex-start'} backgroundColor={'gray.100'}>
                     <Text fontWeight={'600'}>{title}</Text>
                     <ButtonGroup ml={'2'}>
                         <IconButton aria-label="Редактировать" icon={<EditIcon />} />
@@ -65,15 +65,34 @@ const TodoPage = () => {
 
     return (
         <Layout>
-            <HStack align={'center'}>
+            <HStack align={'center'} borderBottom='1px' borderColor={'gray.300'} pb={'3'}>
                 <InputFormAuth type="text" value={todoValue} setValue={setTodoValue} placeholder="Напиши что-то" />
                 <IconButton aria-label="Добавить" icon={<AddIcon />} onClick={() => {addTodo(todoValue); setTodoValue('')}} />
             </HStack>
-            <VStack alignItems={'left'} pt={'10px'} spacing={'3'}>
-                {todos !== undefined && todos.map((item) => (
-                    <TodoItem id={item.id} title={item.title} state={item.state} />
-                ))}
-            </VStack>
+            <HStack  maxWidth={'container.lg'} align={'flex-start'}>
+                <VStack alignItems={'left'} pt={'10px'} spacing={'3'} width={'full'}>
+                    <Text fontSize={'lg'} fontWeight={'600'}>Новые</Text>
+                    
+                    {todos !== undefined && todos.map((item) => item.state === 'todo' && (
+                        <TodoItem id={item.id} title={item.title} state={item.state} />
+                    ))}
+                </VStack>
+                <VStack alignItems={'left'} pt={'10px'} spacing={'3'} width={'full'}>
+                    <Text fontSize={'lg'} fontWeight={'600'}>В работе</Text>
+
+                    {todos !== undefined && todos.map((item) => item.state === 'doing' && (
+                        <TodoItem id={item.id} title={item.title} state={item.state} />
+                    ))}
+                </VStack>
+                <VStack alignItems={'left'} pt={'10px'} spacing={'3'} width={'full'}>
+                    <Text fontSize={'lg'} fontWeight={'600'}>Завершены</Text>
+                    
+                    {todos !== undefined && todos.map((item) => item.state === 'done' && (
+                        <TodoItem id={item.id} title={item.title} state={item.state} />
+                    ))}
+                </VStack>
+            </HStack>
+            
         </Layout>
     )
 }
